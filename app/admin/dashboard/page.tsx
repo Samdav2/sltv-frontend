@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
     Users,
     ShoppingCart,
@@ -285,7 +286,13 @@ export default function AdminDashboardPage() {
                                     <tr key={deal.id} className="hover:bg-gray-50/50 transition-colors">
                                         <td className="px-6 py-4 font-medium text-gray-900 flex items-center gap-3">
                                             <div className="w-10 h-10 rounded-xl bg-gray-100 overflow-hidden">
-                                                <img src={deal.image} alt={deal.name} className="w-full h-full object-cover" />
+                                                <Image
+                                                    src={deal.image}
+                                                    alt={deal.name}
+                                                    width={40}
+                                                    height={40}
+                                                    className="w-full h-full object-cover"
+                                                />
                                             </div>
                                             {deal.name}
                                         </td>

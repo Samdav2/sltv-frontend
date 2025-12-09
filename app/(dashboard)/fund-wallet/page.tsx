@@ -24,6 +24,8 @@ type FundFormValues = z.infer<typeof fundSchema>;
 
 export default function FundWalletPage() {
     const [isLoading, setIsLoading] = useState(false);
+    const [isVerifying, setIsVerifying] = useState(false);
+    const queryClient = useQueryClient();
 
     // Placeholder key - User needs to provide the real one
     const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "pk_test_6976e2160cdb78aad72802b3976feed07c49e631";
@@ -52,24 +54,24 @@ export default function FundWalletPage() {
     });
 
     const onSuccess = async (reference: any) => {
-        console.log("Paystack success:", reference);
+        setIsVerifying(true);
         try {
-            // Verify transaction
             const ref = reference.reference;
-            console.log("Verifying reference:", ref);
-            const verifyResponse = await api.get(`/wallet/fund/paystack/verify?reference=${ref}`);
-            console.log("Verification response:", verifyResponse.data);
+            const verifyResponse = await api.get(`/wallet/verify-payment?reference=${ref}`);
 
-            toast.success("Wallet funded successfully!");
-
-            // Add a small delay to ensure backend DB update propagates before we fetch new balance
-            setTimeout(() => {
-                window.location.href = "/dashboard";
-            }, 2000);
-
+            if (verifyResponse.data.status === 'success') {
+                toast.success("Payment successful! Wallet funded.");
+                // Invalidate wallet query to refresh balance
+                queryClient.invalidateQueries({ queryKey: ["wallet-balance"] });
+                queryClient.invalidateQueries({ queryKey: ["transactions"] });
+            } else {
+                toast.error("Payment verification failed. Please contact support.");
+            }
         } catch (error: any) {
-            console.error("Verification failed", error);
-            toast.error("Payment successful but verification failed. Please contact support.");
+            console.error("Verification error:", error); // Kept this console.error as per diff
+            toast.error("Error verifying payment");
+        } finally {
+            setIsVerifying(false);
             setTriggerPayment(false);
             setIsLoading(false);
         }

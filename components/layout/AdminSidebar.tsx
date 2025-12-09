@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
     LayoutDashboard,
@@ -124,9 +125,11 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
                 <div className="bg-gray-50 rounded-2xl p-4 mb-4">
                     <div className="flex items-center gap-3 mb-3">
                         <div className="w-10 h-10 rounded-full bg-white p-0.5 shadow-sm">
-                            <img
+                            <Image
                                 src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin"
                                 alt="Admin"
+                                width={40}
+                                height={40}
                                 className="w-full h-full rounded-full"
                             />
                         </div>
