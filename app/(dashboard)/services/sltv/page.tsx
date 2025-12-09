@@ -16,9 +16,7 @@ const verifySchema = z.object({
 });
 
 // Schema for Purchase Step
-const purchaseSchema = z.object({
-    amount: z.coerce.number().min(100, "Minimum amount is 100"),
-});
+const purchaseSchema = z.object({});
 
 type VerifyFormValues = z.infer<typeof verifySchema>;
 type PurchaseFormValues = z.infer<typeof purchaseSchema>;
@@ -41,9 +39,7 @@ export default function SLTVPage() {
 
     // Purchase Form
     const {
-        register: registerPurchase,
         handleSubmit: handleSubmitPurchase,
-        formState: { errors: errorsPurchase },
     } = useForm<PurchaseFormValues>({
         resolver: zodResolver(purchaseSchema) as any,
     });
@@ -80,7 +76,7 @@ export default function SLTVPage() {
         try {
             const payload = {
                 smart_card_number: verifiedData.smart_card_number,
-                amount: data.amount,
+                amount: 4900,
                 provider: "sltv",
             };
 
@@ -213,14 +209,10 @@ export default function SLTVPage() {
                         </div>
 
                         <form onSubmit={handleSubmitPurchase(onPurchase)} className="space-y-6">
-                            <Input
-                                id="amount"
-                                type="number"
-                                label="Amount to Pay (₦)"
-                                placeholder="5000"
-                                error={errorsPurchase.amount?.message}
-                                {...registerPurchase("amount")}
-                            />
+                            <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 flex justify-between items-center">
+                                <span className="text-gray-500 font-medium">Amount to Pay</span>
+                                <span className="text-2xl font-bold text-gray-900">₦4,900.00</span>
+                            </div>
 
                             <div className="flex gap-3">
                                 <Button

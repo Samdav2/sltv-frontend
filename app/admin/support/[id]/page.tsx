@@ -60,7 +60,6 @@ export default function AdminTicketDetailsPage() {
     const router = useRouter();
     const params = useParams();
     const ticketId = params.id as string;
-    const ticketId = params.id as string;
     const [replyMessage, setReplyMessage] = useState("");
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
