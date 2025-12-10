@@ -58,7 +58,7 @@ export default function FundWalletPage() {
         setIsVerifying(true);
         try {
             const ref = reference.reference;
-            const verifyResponse = await api.get(`/wallet/verify-payment?reference=${ref}`);
+            const verifyResponse = await api.get(`/wallet/fund/paystack/verify?reference=${ref}`);
 
             if (verifyResponse.data.status === 'success') {
                 toast.success("Payment successful! Wallet funded.");
