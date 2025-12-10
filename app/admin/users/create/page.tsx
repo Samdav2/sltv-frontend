@@ -45,7 +45,7 @@ export default function AdminCreateUserPage() {
         handleSubmit,
         formState: { errors },
     } = useForm<CreateUserFormValues>({
-        resolver: zodResolver(createUserSchema),
+        resolver: zodResolver(createUserSchema) as any,
         defaultValues: {
             is_active: true,
             is_superuser: false,

@@ -32,7 +32,7 @@ interface Ticket {
     user_id: string;
     subject: string;
     priority: "low" | "medium" | "high";
-    status: "open" | "in_progress" | "resolved" | "closed";
+    status: "open" | "in_progress" | "resolved" | "closed" | "pending";
     created_at: string;
     updated_at: string;
     messages: any[];

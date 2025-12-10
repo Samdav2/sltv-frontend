@@ -41,7 +41,7 @@ export default function SupportPage() {
         },
     });
 
-    const { data: tickets = [], isLoading } = useQuery({
+    const { data: tickets = [], isLoading } = useQuery<Ticket[]>({
         queryKey: ["user-tickets"],
         queryFn: async () => {
             const response = await api.get("/support/");
