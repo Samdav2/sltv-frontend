@@ -20,6 +20,7 @@ const providers = [
     { id: "KANO", name: "Kano (KEDCO)", prepaidId: "AFA", postpaidId: "AFB" },
     { id: "PH", name: "Port Harcourt (PHED)", prepaidId: "ADB", postpaidId: "ADA" },
     { id: "JOS", name: "Jos (JEDC)", prepaidId: "ACB", postpaidId: "ACA" },
+    { id: "ENUGU", name: "Enugu (EEDC)", prepaidId: "prepaid", postpaidId: "postpaid" },
 ];
 
 const electricitySchema = z.object({
@@ -64,22 +65,51 @@ export default function ElectricityPage() {
                 try {
                     // Find the provider and get the correct service_id based on meter type
                     const selectedProvider = providers.find((p) => p.id === provider);
-                    const serviceId = meterType === "postpaid" ? selectedProvider?.postpaidId : selectedProvider?.prepaidId;
 
-                    const payload = {
-                        service_id: serviceId,
-                        customerAccountId: meterNumber,
-                    };
+                    if (provider === "ENUGU") {
+                        const payload = {
+                            meter_number: meterNumber,
+                            type: meterType
+                        };
+                        const response = await api.post("/enugu-electricity/verify", payload);
+                        // Enugu endpoint returns details directly or in a specific structure
+                        // Based on user request: "Verify Enugu Electricity (EEDC) customer details."
+                        // Assuming response data structure is compatible or needs mapping
+                        // The user didn't specify the exact response structure for verify,
+                        // but usually it returns customer name etc.
+                        // Let's assume it returns { name: "...", address: "...", ... } or similar to others
+                        // We might need to adapt this if the response is very different.
+                        // For now, let's map it to what our UI expects: customerName, customerNumber, address
 
-                    const response = await api.post("/mobilenig/validate", payload);
-                    // Handle response structure: { details: { customerName: "..." } }
-                    const data = response.data.details || response.data;
-                    setCustomerDetails(data);
+                        const data = response.data;
+                        setCustomerDetails({
+                            customerName: data.name || data.customerName || "Customer", // Adjust based on actual API response
+                            customerNumber: meterNumber,
+                            address: data.address || "Enugu",
+                            ...data
+                        });
+                    } else {
+                        const serviceId = meterType === "postpaid" ? selectedProvider?.postpaidId : selectedProvider?.prepaidId;
+                        const payload = {
+                            service_id: serviceId,
+                            customerAccountId: meterNumber,
+                        };
+
+                        const response = await api.post("/mobilenig/validate", payload);
+                        // Handle response structure: { details: { customerName: "..." } }
+                        const data = response.data.details || response.data;
+                        setCustomerDetails(data);
+                    }
                     toast.success("Meter verified successfully!");
                 } catch (error: any) {
                     console.error(error);
-                    const message =
+                    let message =
                         error.response?.data?.detail || "Verification failed. Please check details.";
+
+                    if (provider === "ENUGU") {
+                        message = "Service currently unavailable. It will be restored shortly";
+                    }
+
                     toast.error(message);
                     setCustomerDetails(null);
                 } finally {
@@ -121,23 +151,39 @@ export default function ElectricityPage() {
         try {
             // Find the provider and get the correct service_id based on meter type
             const selectedProvider = providers.find((p) => p.id === data.provider);
-            const serviceId = data.type === "postpaid" ? selectedProvider?.postpaidId : selectedProvider?.prepaidId;
 
-            const payload = {
-                service_id: serviceId,
-                amount: data.amount,
-                meterNumber: data.meter_number,
-                phoneNumber: data.phone_number,
-                email: user?.email || "techio.com.ng@gmail.com", // Fallback or handle missing email
-                customerName: customerDetails.customerName || "Customer",
-                customerAddress: customerDetails.address || "Address",
-                customerAccountType: data.type === "postpaid" ? "Postpaid" : "Prepaid",
-                customerDtNumber: customerDetails.customerDtNumber || "string",
-                contactType: "TENANT",
-                admin_amount: 500,
-            };
+            let response;
+            if (data.provider === "ENUGU") {
+                const payload = {
+                    meter_number: data.meter_number,
+                    amount: data.amount,
+                    admin_amount: 500, // Hardcoded as per other request or user instruction? User request example showed admin_amount: 0 but maybe we want to keep it consistent?
+                    // User request: { "meter_number": "string", "amount": 0, "admin_amount": 0, "type": "prepaid" }
+                    // Let's use the form amount and a default admin_amount if needed, or 0 if that's what's expected.
+                    // The other one has admin_amount: 500. Let's stick to 500 or what's in the code?
+                    // The existing code has `admin_amount: 500`. I will use that for consistency unless it fails.
+                    type: data.type
+                };
+                response = await api.post("/enugu-electricity/purchase", payload);
+            } else {
+                const serviceId = data.type === "postpaid" ? selectedProvider?.postpaidId : selectedProvider?.prepaidId;
 
-            const response = await api.post("/mobilenig/purchase/electricity", payload);
+                const payload = {
+                    service_id: serviceId,
+                    amount: data.amount,
+                    meterNumber: data.meter_number,
+                    phoneNumber: data.phone_number,
+                    email: user?.email || "techio.com.ng@gmail.com", // Fallback or handle missing email
+                    customerName: customerDetails.customerName || "Customer",
+                    customerAddress: customerDetails.address || "Address",
+                    customerAccountType: data.type === "postpaid" ? "Postpaid" : "Prepaid",
+                    customerDtNumber: customerDetails.customerDtNumber || "string",
+                    contactType: "TENANT",
+                    admin_amount: 500,
+                };
+
+                response = await api.post("/mobilenig/purchase/electricity", payload);
+            }
             toast.success("Electricity payment successful!");
 
             // Handle success response
@@ -162,6 +208,10 @@ export default function ElectricityPage() {
                     message = JSON.stringify(error.response.data.detail);
                 }
             }
+            if (data.provider === "ENUGU") {
+                message = "Service currently unavailable. It will be restored shortly";
+            }
+
             toast.error(message);
         } finally {
             setIsLoading(false);

@@ -20,20 +20,20 @@ export default function DashboardLayout({
 
             {/* Mobile Header */}
             <header className="lg:hidden fixed top-0 left-0 w-full bg-white/90 backdrop-blur-xl border-b border-gray-100 z-30 px-4 sm:px-6 py-4 flex justify-between items-center">
+                <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className="w-10 h-10 flex items-center justify-center text-gray-900 hover:bg-gray-100 rounded-xl transition-colors"
+                >
+                    {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                </button>
                 <div className="flex items-center gap-2">
-                    <button
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="w-10 h-10 flex items-center justify-center text-gray-900 hover:bg-gray-100 rounded-xl transition-colors"
-                    >
-                        {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                    </button>
+                    <Link href="/dashboard" className="text-xl font-bold tracking-tight text-gray-900">
+                        Swift<span className="gradient-text">VTU</span>
+                    </Link>
                     <Button variant="ghost" size="icon" className="text-gray-500 hover:bg-gray-100 rounded-xl w-10 h-10">
                         <Bell className="w-5 h-5" />
                     </Button>
                 </div>
-                <Link href="/dashboard" className="text-xl font-bold tracking-tight text-gray-900">
-                    Swift<span className="gradient-text">VTU</span>
-                </Link>
             </header>
 
             {/* Mobile Menu Overlay */}

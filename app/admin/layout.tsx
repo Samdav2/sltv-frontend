@@ -18,9 +18,9 @@ export default function AdminLayout({
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
     useEffect(() => {
-        // Skip auth check for login page
-        if (pathname === "/admin/login") {
-            setIsAuthenticated(true); // Allow login page to render
+        // Skip auth check for login and register pages
+        if (pathname === "/admin/login" || pathname === "/admin/register") {
+            setIsAuthenticated(true); // Allow login/register page to render
             return;
         }
 
@@ -42,8 +42,8 @@ export default function AdminLayout({
         );
     }
 
-    // Login page doesn't need the layout wrapper
-    if (pathname === "/admin/login") {
+    // Login and Register pages don't need the layout wrapper
+    if (pathname === "/admin/login" || pathname === "/admin/register") {
         return <>{children}</>;
     }
 
