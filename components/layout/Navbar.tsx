@@ -28,7 +28,7 @@ export function Navbar() {
                     : "bg-transparent"
             )}
         >
-            <div className="container-tight">
+            <div className="w-full mx-auto px-6 md:px-8 lg:max-w-[80%]">
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
                     <Link href="/" className="text-2xl font-bold tracking-tight text-gray-900">

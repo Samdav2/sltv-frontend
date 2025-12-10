@@ -34,7 +34,7 @@ export default function Home() {
         <div className="absolute bottom-20 right-10 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl floating-delayed"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-500/5 to-indigo-500/5 rounded-full blur-3xl"></div>
 
-        <div className="w-full mx-auto px-6 md:px-8 lg:max-w-[60%] relative z-10">
+        <div className="w-full mx-auto px-6 md:px-8 lg:max-w-[80%] relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
             {/* Content */}
             <div className="lg:w-1/2 text-center lg:text-left">
@@ -194,7 +194,7 @@ export default function Home() {
 
       {/* Services Section */}
       <section className="py-20 lg:py-28 bg-white">
-        <div className="w-full mx-auto px-6 md:px-8 lg:max-w-[60%]">
+        <div className="w-full mx-auto px-6 md:px-8 lg:max-w-[80%]">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-caption text-primary mb-4 block">SERVICES</span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl text-headline mb-6">
@@ -262,7 +262,7 @@ export default function Home() {
 
       {/* Features Section */}
       <section id="features" className="py-20 lg:py-28 gradient-mesh">
-        <div className="w-full mx-auto px-6 md:px-8 lg:max-w-[60%]">
+        <div className="w-full mx-auto px-6 md:px-8 lg:max-w-[80%]">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-caption text-primary mb-4 block">WHY CHOOSE US</span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl text-headline mb-6">
@@ -302,7 +302,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-20 lg:py-28">
-        <div className="w-full mx-auto px-6 md:px-8 lg:max-w-[60%]">
+        <div className="w-full mx-auto px-6 md:px-8 lg:max-w-[80%]">
           <div className="relative gradient-hero rounded-[32px] lg:rounded-[48px] p-10 md:p-16 lg:p-20 text-center text-white overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
@@ -334,7 +334,7 @@ export default function Home() {
 
       {/* Networks */}
       <section className="py-16">
-        <div className="w-full mx-auto px-6 md:px-8 lg:max-w-[60%]">
+        <div className="w-full mx-auto px-6 md:px-8 lg:max-w-[80%]">
           <p className="text-center text-caption mb-8">TRUSTED BY ALL MAJOR NETWORKS</p>
           <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-16 opacity-60">
             {["MTN", "Airtel", "Glo", "9mobile", "SLTV"].map((network, i) => (
