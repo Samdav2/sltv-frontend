@@ -16,7 +16,7 @@ export default function NotFound() {
                 {/* Actions */}
                 <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
                     <Link href="/login">
-                        <Button variant="default" className="w-full sm:w-auto">
+                        <Button variant="primary" className="w-full sm:w-auto">
                             Login
                         </Button>
                     </Link>
