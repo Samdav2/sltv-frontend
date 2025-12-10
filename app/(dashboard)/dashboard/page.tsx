@@ -33,12 +33,29 @@ export default function DashboardPage() {
         const fetchData = async () => {
             try {
                 const [walletRes, userRes] = await Promise.all([
-                    api.get("/wallet/me"),
-                    api.get("/profile/me"),
+                    api.get("/wallet/me").catch(e => {
+                        console.error("Failed to fetch wallet", e);
+                        return { data: null };
+                    }),
+                    api.get("/profile/me").catch(e => {
+                        console.error("Failed to fetch profile", e);
+                        return { data: null };
+                    }),
                 ]);
-                setWallet(walletRes.data);
-                const storedName = localStorage.getItem("userName");
-                setUser({ ...userRes.data, displayName: userRes.data.full_name || storedName });
+
+                if (walletRes.data) {
+                    setWallet(walletRes.data);
+                }
+
+                if (userRes.data) {
+                    const storedName = localStorage.getItem("userName");
+                    setUser({ ...userRes.data, displayName: userRes.data.full_name || storedName });
+                } else {
+                    const storedName = localStorage.getItem("userName");
+                    if (storedName) {
+                        setUser({ displayName: storedName });
+                    }
+                }
 
                 if (walletRes.data && walletRes.data.id) {
                     try {

@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { Wallet } from "lucide-react";
 import api from "@/lib/api";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
 // Dynamically import PaystackPayment with SSR disabled
@@ -27,6 +28,7 @@ export default function FundWalletPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [isVerifying, setIsVerifying] = useState(false);
     const queryClient = useQueryClient();
+    const router = useRouter();
 
     // Placeholder key - User needs to provide the real one
     const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "pk_test_6976e2160cdb78aad72802b3976feed07c49e631";
@@ -65,6 +67,7 @@ export default function FundWalletPage() {
                 // Invalidate wallet query to refresh balance
                 queryClient.invalidateQueries({ queryKey: ["wallet-balance"] });
                 queryClient.invalidateQueries({ queryKey: ["transactions"] });
+                router.push("/dashboard");
             } else {
                 toast.error("Payment verification failed. Please contact support.");
             }

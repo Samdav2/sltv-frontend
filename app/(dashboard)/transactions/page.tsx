@@ -102,8 +102,19 @@ export default function TransactionsPage() {
         return tx.type === filter;
     });
 
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+
     const totalSpent = transactions
-        .filter((tx) => tx.type === "debit" && tx.status === "success")
+        .filter((tx) => {
+            const txDate = new Date(tx.created_at);
+            return (
+                tx.type === "debit" &&
+                tx.status === "success" &&
+                txDate.getMonth() === currentMonth &&
+                txDate.getFullYear() === currentYear
+            );
+        })
         .reduce((acc, tx) => acc + tx.amount, 0);
 
     if (isLoading) {
