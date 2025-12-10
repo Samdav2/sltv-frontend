@@ -32,7 +32,7 @@ const menuItems = [
     { icon: Headset, label: "Support", href: "/support" },
 ];
 
-export function Sidebar({ className }: { className?: string }) {
+export function Sidebar({ className, onClose }: { className?: string; onClose?: () => void }) {
     const pathname = usePathname();
 
     // Fetch tickets for notification badge
@@ -73,7 +73,7 @@ export function Sidebar({ className }: { className?: string }) {
         <aside className={cn("flex flex-col w-72 bg-white h-screen fixed left-0 top-0 z-30 border-r border-gray-100", className)}>
             {/* Logo */}
             <div className="p-6 h-20 flex items-center">
-                <Link href="/dashboard" className="text-2xl font-bold tracking-tight text-gray-900">
+                <Link href="/dashboard" className="text-2xl font-bold tracking-tight text-gray-900" onClick={onClose}>
                     Swift<span className="gradient-text">VTU</span>
                 </Link>
             </div>
@@ -95,6 +95,7 @@ export function Sidebar({ className }: { className?: string }) {
                         return (
                             <Link key={item.href} href={item.href}>
                                 <div
+                                    onClick={onClose}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 relative",
                                         isActive
