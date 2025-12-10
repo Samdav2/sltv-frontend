@@ -4,9 +4,10 @@ import { cn } from "@/lib/utils";
 
 interface ExpenseChartProps {
     data: { label: string; value: number; active?: boolean }[];
+    total: number;
 }
 
-export function ExpenseChart({ data }: ExpenseChartProps) {
+export function ExpenseChart({ data, total }: ExpenseChartProps) {
     const maxValue = Math.max(...data.map((d) => d.value));
 
     return (
@@ -14,7 +15,7 @@ export function ExpenseChart({ data }: ExpenseChartProps) {
             <div className="flex justify-between items-end mb-8">
                 <div>
                     <p className="text-sm text-gray-500 mb-1">My Expense</p>
-                    <h3 className="text-2xl font-bold text-gray-900">₦12,500</h3>
+                    <h3 className="text-2xl font-bold text-gray-900">₦{total.toLocaleString()}</h3>
                 </div>
             </div>
 

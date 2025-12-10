@@ -12,21 +12,38 @@ import { CreditCard } from "@/components/ui/CreditCard";
 import { ExpenseChart } from "@/components/ui/ExpenseChart";
 import { generateTransactionReceipt } from "@/lib/pdf-generator";
 
-// Mock data for the chart
-const chartData = [
-    { label: "Aug", value: 4500 },
-    { label: "Sep", value: 6200 },
-    { label: "Oct", value: 5100 },
-    { label: "Nov", value: 3800 },
-    { label: "Dec", value: 12500, active: true },
-    { label: "Jan", value: 7400 },
-];
-
 export default function TransactionsPage() {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [walletBalance, setWalletBalance] = useState(0);
     const [user, setUser] = useState<any>(null);
+
+    // Calculate chart data for the last 6 months
+    const today = new Date();
+    const chartData = Array.from({ length: 6 }, (_, i) => {
+        const date = new Date(today.getFullYear(), today.getMonth() - (5 - i), 1);
+        const monthName = format(date, "MMM");
+        const month = date.getMonth();
+        const year = date.getFullYear();
+
+        const monthlyTotal = transactions
+            .filter((tx) => {
+                const txDate = new Date(tx.created_at);
+                return (
+                    tx.type === "debit" &&
+                    tx.status === "success" &&
+                    txDate.getMonth() === month &&
+                    txDate.getFullYear() === year
+                );
+            })
+            .reduce((acc, tx) => acc + tx.amount, 0);
+
+        return {
+            label: monthName,
+            value: monthlyTotal,
+            active: i === 5, // Current month is the last one
+        };
+    });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -204,7 +221,7 @@ export default function TransactionsPage() {
                     </div>
                 </div>
                 <div className="lg:col-span-1">
-                    <ExpenseChart data={chartData} />
+                    <ExpenseChart data={chartData} total={totalSpent} />
                 </div>
             </div>
 
