@@ -127,7 +127,8 @@ export default function SLTVPage() {
                     </div>
                     SLTV Subscription
                 </h1>
-                <p className="text-gray-500 mt-2">Instant activation for Super Link TV</p>
+                <p className="text-gray-500 mt-2">Instant activation for SLTV</p>
+                <p className="text-red-500 font-bold mt-1">Make Sure Your Decoder is Turned on</p>
             </div>
 
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">

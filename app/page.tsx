@@ -72,12 +72,12 @@ export default function Home() {
               {/* Stats */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-8 pt-8 border-t border-gray-200/50">
                 <div>
-                  <div className="text-2xl lg:text-3xl font-bold text-gray-900">50K+</div>
+                  <div className="text-2xl lg:text-3xl font-bold text-gray-900">250+</div>
                   <div className="text-sm text-gray-500">Happy Users</div>
                 </div>
                 <div className="w-px h-10 bg-gray-200 hidden sm:block"></div>
                 <div>
-                  <div className="text-2xl lg:text-3xl font-bold text-gray-900">₦2B+</div>
+                  <div className="text-2xl lg:text-3xl font-bold text-gray-900">₦750k+</div>
                   <div className="text-sm text-gray-500">Transactions</div>
                 </div>
                 <div className="w-px h-10 bg-gray-200 hidden sm:block"></div>

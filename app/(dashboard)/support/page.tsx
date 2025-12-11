@@ -81,6 +81,16 @@ export default function SupportPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Create Ticket Form */}
                 <div className="md:col-span-1">
+                    {/* Contact Info */}
+                    <div className="bg-green-50 p-6 rounded-2xl shadow-sm border border-green-100 mb-6">
+                        <h3 className="text-lg font-bold text-green-900 mb-2">Need Quick Help?</h3>
+                        <p className="text-green-700 text-sm mb-3">Contact us on WhatsApp for immediate assistance.</p>
+                        <div className="flex items-center gap-2 text-green-800 font-mono font-bold text-lg">
+                            <MessageSquare className="w-5 h-5" />
+                            09116935348
+                        </div>
+                    </div>
+
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                         <h3 className="text-lg font-bold text-gray-900 mb-4">
                             Create New Ticket
