@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu, X, Bell } from "lucide-react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Button } from "@/components/ui/button";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 export default function DashboardLayout({
     children,
@@ -58,6 +59,7 @@ export default function DashboardLayout({
                     {children}
                 </div>
             </main>
+            <WhatsAppButton />
         </div>
     );
 }
