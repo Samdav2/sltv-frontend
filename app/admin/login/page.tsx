@@ -21,7 +21,8 @@ type AdminLoginFormValues = z.infer<typeof adminLoginSchema>;
 export default function AdminLoginPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+    // Start with false to show form immediately. If logged in, we'll redirect.
+    const [isCheckingAuth, setIsCheckingAuth] = useState(false);
 
     const {
         register,
@@ -36,19 +37,8 @@ export default function AdminLoginPage() {
         const token = localStorage.getItem("admin_token");
         if (token) {
             router.replace("/admin/dashboard");
-        } else {
-            setIsCheckingAuth(false);
         }
     }, [router]);
-
-    // Show loading while checking auth
-    if (isCheckingAuth) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
-                <Loader2 className="w-8 h-8 animate-spin text-red-600" />
-            </div>
-        );
-    }
 
     const onSubmit = async (data: AdminLoginFormValues) => {
         setIsLoading(true);
@@ -100,7 +90,7 @@ export default function AdminLoginPage() {
                         id="username"
                         type="email"
                         label="Admin Email"
-                        placeholder="admin@sltv.com"
+                        placeholder="admin@ezyvtu.com.ng"
                         error={errors.username?.message}
                         {...register("username")}
                     />

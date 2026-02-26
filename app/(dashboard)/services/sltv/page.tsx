@@ -10,6 +10,27 @@ import api from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+// Package options
+const PACKAGES = [
+    { value: 1, name: "Gold", price: 5000 },
+    { value: 2, name: "Standard", price: 2500 },
+];
+
+const getErrorMessage = (error: any, fallback: string): string => {
+    const detail = error.response?.data?.detail;
+    if (!detail) return fallback;
+    if (typeof detail === "string") return detail;
+    if (Array.isArray(detail) && detail.length > 0) {
+        // Handle validation error array format
+        return detail.map((err: any) => {
+            const field = err.loc ? err.loc.join(".") : "";
+            const msg = err.msg || String(err);
+            return field ? `${field}: ${msg}` : msg;
+        }).join(", ");
+    }
+    return fallback;
+};
+
 // Schema for Verification Step
 const verifySchema = z.object({
     smart_card_number: z.string().min(10, "Invalid Smart Card Number"),
@@ -27,6 +48,7 @@ export default function SLTVPage() {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [customerDetails, setCustomerDetails] = useState<any>(null);
     const [verifiedData, setVerifiedData] = useState<VerifyFormValues | null>(null);
+    const [selectedPackage, setSelectedPackage] = useState(PACKAGES[0]);
 
     // Verification Form
     const {
@@ -52,7 +74,9 @@ export default function SLTVPage() {
                 ...data,
                 amount: 0,
                 provider: "sltv",
+                value: selectedPackage.value,
             };
+            console.log("Verification payload:", JSON.stringify(payload, null, 2));
 
             const response = await api.post("/services/tv/details", payload);
             setCustomerDetails(response.data.data);
@@ -61,8 +85,7 @@ export default function SLTVPage() {
             toast.success("Customer verified successfully!");
         } catch (error: any) {
             console.error(error);
-            const message =
-                error.response?.data?.detail || "Verification failed. Please check details.";
+            const message = getErrorMessage(error, "Verification failed. Please check details.");
             toast.error(message);
         } finally {
             setIsLoading(false);
@@ -76,20 +99,20 @@ export default function SLTVPage() {
         try {
             const payload = {
                 smart_card_number: verifiedData.smart_card_number,
-                amount: 4900,
+                amount: selectedPackage.price,
                 provider: "sltv",
+                value: selectedPackage.value,
             };
 
             await api.post("/services/tv", payload);
-            toast.success("SLTV Subscription Successful!");
-            // Reset flow
+            toast.success("SUBSCRIPTION SUCCESSFUL");
             setStep("verify");
             setCustomerDetails(null);
             setVerifiedData(null);
+            setSelectedPackage(PACKAGES[0]);
         } catch (error: any) {
             console.error(error);
-            const message =
-                error.response?.data?.detail || "Transaction failed. Please try again.";
+            const message = getErrorMessage(error, "Transaction failed. Please try again.");
             toast.error(message);
         } finally {
             setIsLoading(false);
@@ -110,8 +133,7 @@ export default function SLTVPage() {
             toast.success("Signal Refreshed Successfully!");
         } catch (error: any) {
             console.error(error);
-            const message =
-                error.response?.data?.detail || "Refresh failed. Please try again.";
+            const message = getErrorMessage(error, "Refresh failed. Please try again.");
             toast.error(message);
         } finally {
             setIsRefreshing(false);
@@ -210,9 +232,42 @@ export default function SLTVPage() {
                         </div>
 
                         <form onSubmit={handleSubmitPurchase(onPurchase)} className="space-y-6">
+                            {/* Package Selection */}
+                            <div className="space-y-3">
+                                <label className="block text-sm font-medium text-gray-700">
+                                    Select Package
+                                </label>
+                                <div className="grid grid-cols-2 gap-3">
+                                    {PACKAGES.map((pkg) => (
+                                        <button
+                                            key={pkg.value}
+                                            type="button"
+                                            onClick={() => setSelectedPackage(pkg)}
+                                            className={`p-4 rounded-xl border-2 transition-all text-left ${selectedPackage.value === pkg.value
+                                                ? "border-indigo-500 bg-indigo-50"
+                                                : "border-gray-200 hover:border-gray-300 bg-white"
+                                                }`}
+                                        >
+                                            <div className={`text-lg font-bold ${selectedPackage.value === pkg.value
+                                                ? "text-indigo-600"
+                                                : "text-gray-900"
+                                                }`}>
+                                                {pkg.name}
+                                            </div>
+                                            <div className={`text-xl font-bold mt-1 ${selectedPackage.value === pkg.value
+                                                ? "text-indigo-700"
+                                                : "text-gray-700"
+                                                }`}>
+                                                ₦{pkg.price.toLocaleString()}
+                                            </div>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
                             <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 flex justify-between items-center">
                                 <span className="text-gray-500 font-medium">Amount to Pay</span>
-                                <span className="text-2xl font-bold text-gray-900">₦4,900.00</span>
+                                <span className="text-2xl font-bold text-gray-900">₦{selectedPackage.price.toLocaleString()}.00</span>
                             </div>
 
                             <div className="flex gap-3">

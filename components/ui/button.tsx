@@ -2,15 +2,18 @@ import * as React from "react";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import Link from "next/link";
+
 export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: "primary" | "secondary" | "outline" | "ghost" | "link" | "white" | "destructive";
     size?: "default" | "sm" | "lg" | "xl" | "icon";
     isLoading?: boolean;
+    href?: string;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant = "primary", size = "default", isLoading, children, ...props }, ref) => {
+    ({ className, variant = "primary", size = "default", isLoading, href, children, ...props }, ref) => {
         const variants = {
             primary: "btn-primary text-white",
             secondary: "btn-secondary text-gray-700",
@@ -29,14 +32,29 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             icon: "h-12 w-12 p-0",
         };
 
+        const classes = cn(
+            "inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
+            variants[variant],
+            sizes[size],
+            className
+        );
+
+        if (href) {
+            return (
+                <Link
+                    href={href}
+                    className={classes}
+                    {...(props as any)} // eslint-disable-line @typescript-eslint/no-explicit-any
+                >
+                    {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {children}
+                </Link>
+            );
+        }
+
         return (
             <button
-                className={cn(
-                    "inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
-                    variants[variant],
-                    sizes[size],
-                    className
-                )}
+                className={classes}
                 ref={ref}
                 disabled={isLoading || props.disabled}
                 {...props}

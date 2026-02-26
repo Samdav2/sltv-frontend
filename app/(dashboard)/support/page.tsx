@@ -21,11 +21,13 @@ const ticketSchema = z.object({
 
 type TicketFormValues = z.infer<typeof ticketSchema>;
 
+import { useRouter } from "next/navigation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 // ... (imports)
 
 export default function SupportPage() {
+    const router = useRouter();
     const [isCreating, setIsCreating] = useState(false);
     const queryClient = useQueryClient();
 
@@ -166,7 +168,7 @@ export default function SupportPage() {
                                     <div
                                         key={ticket.id}
                                         className="p-4 hover:bg-gray-50 transition-colors cursor-pointer"
-                                        onClick={() => window.location.href = `/support/${ticket.id}`}
+                                        onClick={() => router.push(`/support/${ticket.id}`)}
                                     >
                                         <div className="flex justify-between items-start mb-2">
                                             <h4 className="font-semibold text-gray-900">

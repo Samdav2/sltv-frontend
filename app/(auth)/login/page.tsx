@@ -48,6 +48,8 @@ export default function LoginPage() {
             if (name) {
                 localStorage.setItem("userName", name);
             }
+            // Store email for later use (e.g. funding wallet)
+            localStorage.setItem("userEmail", data.username);
             toast.success("Login successful!");
             router.push("/dashboard");
         } catch (error: any) {

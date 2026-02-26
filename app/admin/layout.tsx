@@ -15,12 +15,14 @@ export default function AdminLayout({
     const router = useRouter();
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+    // Initialize based on pathname to avoid flicker/loading state for public routes
+    const isPublicRoute = pathname?.startsWith("/admin/login") || pathname?.startsWith("/admin/register");
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(isPublicRoute ? true : null);
 
     useEffect(() => {
         // Skip auth check for login and register pages
-        if (pathname === "/admin/login" || pathname === "/admin/register") {
-            setIsAuthenticated(true); // Allow login/register page to render
+        if (pathname?.startsWith("/admin/login") || pathname?.startsWith("/admin/register")) {
+            setIsAuthenticated(true);
             return;
         }
 
@@ -43,7 +45,7 @@ export default function AdminLayout({
     }
 
     // Login and Register pages don't need the layout wrapper
-    if (pathname === "/admin/login" || pathname === "/admin/register") {
+    if (pathname?.startsWith("/admin/login") || pathname?.startsWith("/admin/register")) {
         return <>{children}</>;
     }
 
@@ -59,7 +61,7 @@ export default function AdminLayout({
                 {/* Mobile Header */}
                 <header className="lg:hidden flex-shrink-0 bg-white/90 backdrop-blur-xl border-b border-gray-100 z-30 px-4 sm:px-6 py-4 flex justify-between items-center">
                     <Link href="/admin/dashboard" className="text-xl font-bold tracking-tight text-gray-900">
-                        Swift<span className="gradient-text">VTU Admin</span>
+                        EZY <span className="gradient-text">VTU Admin</span>
                     </Link>
                     <div className="flex items-center gap-2">
                         <Button variant="ghost" size="icon" className="text-gray-500 hover:bg-gray-100 rounded-xl w-10 h-10">

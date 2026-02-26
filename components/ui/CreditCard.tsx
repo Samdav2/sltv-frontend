@@ -13,8 +13,8 @@ export function CreditCard({
     balance,
     currency = "₦",
     cardHolder,
-    expiryDate,
-    cardNumber,
+    // expiryDate,
+    // cardNumber,
     variant = "blue",
 }: CreditCardProps) {
     const isBlue = variant === "blue";

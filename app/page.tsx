@@ -57,16 +57,12 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
-                <Link href="/register">
-                  <Button size="xl" className="w-full sm:w-auto gap-2">
-                    Get Started Free <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </Link>
-                <Link href="/login">
-                  <Button size="xl" variant="secondary" className="w-full sm:w-auto">
-                    Sign In
-                  </Button>
-                </Link>
+                <Button href="/register" size="xl" className="w-full sm:w-auto gap-2">
+                  Get Started Free <ArrowRight className="w-5 h-5" />
+                </Button>
+                <Button href="/login" size="xl" variant="secondary" className="w-full sm:w-auto">
+                  Sign In
+                </Button>
               </div>
 
               {/* Stats */}
@@ -318,14 +314,12 @@ export default function Home() {
                 Ready to get started?
               </h2>
               <p className="text-lg lg:text-xl opacity-90 mb-10 max-w-xl mx-auto">
-                Join thousands of Nigerians who trust SwiftVTU for their daily digital payments.
+                Join thousands of Nigerians who trust EZY VTU for their daily digital payments.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/register">
-                  <Button size="xl" variant="white" className="w-full sm:w-auto gap-2 text-primary">
-                    Create Free Account <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </Link>
+                <Button href="/register" size="xl" variant="white" className="w-full sm:w-auto gap-2 text-primary">
+                  Create Free Account <ArrowRight className="w-5 h-5" />
+                </Button>
               </div>
             </div>
           </div>

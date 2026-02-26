@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 
 export default function AuthLayout({
@@ -22,9 +23,11 @@ export default function AuthLayout({
                     <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                     Back to Home
                 </Link>
-                <h2 className="text-center text-3xl font-extrabold text-gray-900">
-                    Swift<span className="text-primary">VTU</span>.
-                </h2>
+                <div className="flex justify-center mb-2 font-[family-name:var(--font-fredoka)]">
+                    <span className="text-4xl font-bold text-black tracking-tight">EZY</span>
+                    <span className="text-4xl font-bold text-[#0066FF] tracking-tight">VTU</span>
+                    <span className="text-4xl font-bold text-black">.</span>
+                </div>
             </div>
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-10">

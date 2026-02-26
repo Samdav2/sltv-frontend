@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* Standalone mode for optimized production build */
+  output: 'standalone',
+  trailingSlash: true,
+  productionBrowserSourceMaps: false,
+
+  /* Image optimization */
   images: {
     remotePatterns: [
       {
@@ -11,6 +16,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
+  /* Performance optimizations */
+  compress: true,
+  poweredByHeader: false,
+
   async headers() {
     return [
       {

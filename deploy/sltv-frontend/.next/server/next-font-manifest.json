@@ -1,0 +1,91 @@
+{
+  "app": {
+    "[project]/sltv-frontend/app/(auth)/forgot-password/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(auth)/login/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(auth)/register/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(auth)/reset-password/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(dashboard)/dashboard/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(dashboard)/fund-wallet/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(dashboard)/payment/callback/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(dashboard)/profile/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(dashboard)/services/airtime/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(dashboard)/services/data/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(dashboard)/services/electricity/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(dashboard)/services/sltv/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(dashboard)/support/[id]/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(dashboard)/support/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/(dashboard)/transactions/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/_not-found/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/admin/dashboard/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/admin/login/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/admin/services/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/admin/support/[id]/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/admin/support/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/admin/transactions/[id]/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/admin/transactions/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/admin/users/[id]/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/admin/users/create/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/admin/users/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ],
+    "[project]/sltv-frontend/app/verify_email/page": [
+      "static/media/5d52bd6c4cb3f315-s.p.610fd2a3.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}

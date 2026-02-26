@@ -29,7 +29,7 @@ export default function DashboardLayout({
                 </button>
                 <div className="flex items-center gap-2">
                     <Link href="/dashboard" className="text-xl font-bold tracking-tight text-gray-900">
-                        Swift<span className="gradient-text">VTU</span>
+                        EZY <span className="gradient-text">VTU</span>
                     </Link>
                     <Button variant="ghost" size="icon" className="text-gray-500 hover:bg-gray-100 rounded-xl w-10 h-10">
                         <Bell className="w-5 h-5" />

@@ -26,6 +26,7 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 export default function RegisterPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const {
         register,
@@ -44,8 +45,11 @@ export default function RegisterPage() {
                 full_name: data.full_name,
             });
 
-            toast.success("Account created successfully! Please log in.");
-            router.push("/login");
+            // Store email for convenience (though user still needs to login)
+            localStorage.setItem("userEmail", data.email);
+
+            setSuccess(true);
+            toast.success("Account created successfully! Please check your email.");
         } catch (error: any) {
             console.error(error);
             const message =
@@ -56,11 +60,49 @@ export default function RegisterPage() {
         }
     };
 
+    if (success) {
+        return (
+            <div className="text-center">
+                <div className="mb-6 flex justify-center">
+                    <div className="h-16 w-16 bg-green-100 rounded-full flex items-center justify-center">
+                        <svg
+                            className="w-8 h-8 text-green-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M5 13l4 4L19 7"
+                            />
+                        </svg>
+                    </div>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    Verification Email Sent
+                </h3>
+                <p className="text-gray-600 mb-8">
+                    We've sent a verification link to your email address. Please check your
+                    inbox and click the link to verify your account.
+                </p>
+                <Button
+                    onClick={() => router.push("/login")}
+                    className="w-full"
+                    variant="outline"
+                >
+                    Return to Login
+                </Button>
+            </div>
+        );
+    }
+
     return (
         <div>
             <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">Create Account</h3>
-                <p className="text-gray-500 mt-2">Join SwiftVTU to start transacting</p>
+                <p className="text-gray-500 mt-2">Join EZY VTU to start transacting</p>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

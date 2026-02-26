@@ -1,6 +1,6 @@
-# SLTV Frontend
+# EZY VTU Frontend
 
-This is the frontend application for SLTV, built with Next.js, Tailwind CSS, and TypeScript.
+This is the frontend application for EZY VTU, built with Next.js, Tailwind CSS, and TypeScript.
 
 ## Features
 

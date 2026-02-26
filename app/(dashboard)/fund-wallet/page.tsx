@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -20,6 +20,7 @@ const PaystackPayment = dynamic(
 
 const fundSchema = z.object({
     amount: z.coerce.number().min(100, "Minimum amount is 100"),
+    email: z.string().email("Please enter a valid email address"),
 });
 
 type FundFormValues = z.infer<typeof fundSchema>;
@@ -31,13 +32,13 @@ export default function FundWalletPage() {
     const router = useRouter();
 
     // Placeholder key - User needs to provide the real one
-    const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "pk_test_6976e2160cdb78aad72802b3976feed07c49e631";
+    const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
 
     const [paystackConfig, setPaystackConfig] = useState<any>({
         publicKey,
         reference: (new Date()).getTime().toString(), // Initial dummy reference
         amount: 0,
-        email: "user@example.com",
+        email: "",
     });
 
     const [triggerPayment, setTriggerPayment] = useState(false);
@@ -51,10 +52,18 @@ export default function FundWalletPage() {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
     } = useForm<FundFormValues>({
         resolver: zodResolver(fundSchema) as any,
     });
+
+    useEffect(() => {
+        const storedEmail = localStorage.getItem("userEmail");
+        if (storedEmail) {
+            setValue("email", storedEmail);
+        }
+    }, [setValue]);
 
     const onSuccess = async (reference: any) => {
         setIsVerifying(true);
@@ -83,6 +92,17 @@ export default function FundWalletPage() {
 
     const onSubmit = async (data: FundFormValues) => {
         setIsLoading(true);
+
+        if (!publicKey) {
+            toast.error("Paystack configuration missing. Please contact support.");
+            setIsLoading(false);
+            return;
+        }
+
+
+
+
+
         try {
             // Initialize on backend to get access_code
             const response = await api.post(
@@ -100,7 +120,7 @@ export default function FundWalletPage() {
             setPaystackConfig({
                 publicKey,
                 access_code: payload.access_code,
-                email: "user@example.com", // Should come from user profile if possible
+                email: data.email,
                 amount: data.amount * 100, // Optional if access_code is used
             });
 
@@ -111,6 +131,15 @@ export default function FundWalletPage() {
             const message = error.response?.data?.detail || "Failed to initialize payment.";
             toast.error(message);
             setIsLoading(false);
+        }
+    };
+
+    const onError = (errors: any) => {
+        if (errors.email) {
+            toast.error("Email is missing. Please log out and log back in to refresh your session.");
+        }
+        if (errors.amount) {
+            toast.error(errors.amount.message);
         }
     };
 
@@ -127,7 +156,13 @@ export default function FundWalletPage() {
             </div>
 
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-6">
+                    <Input
+                        id="email"
+                        type="hidden"
+                        {...register("email")}
+                    />
+
                     <Input
                         id="amount"
                         type="number"

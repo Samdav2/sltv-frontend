@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+// import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import {
@@ -53,11 +54,11 @@ export function Sidebar({ className, onClose }: { className?: string; onClose?: 
         if (tickets && Array.isArray(tickets)) {
             try {
                 const seenTickets = JSON.parse(localStorage.getItem("seen_tickets") || "[]");
-                const unreadTickets = tickets.filter((t: any) =>
+                const unreadTickets = tickets.filter((t: any) => // eslint-disable-line @typescript-eslint/no-explicit-any
                     (t.status === 'in_progress' || t.status === 'resolved') &&
                     !seenTickets.includes(t.id)
                 );
-                setSupportBadgeCount(unreadTickets.length);
+                setSupportBadgeCount(unreadTickets.length); // eslint-disable-line react-hooks/set-state-in-effect
             } catch (e) {
                 console.error("Error parsing seen_tickets", e);
             }
@@ -73,8 +74,10 @@ export function Sidebar({ className, onClose }: { className?: string; onClose?: 
         <aside className={cn("flex flex-col w-72 bg-white h-screen fixed left-0 top-0 z-30 border-r border-gray-100", className)}>
             {/* Logo */}
             <div className="p-6 h-20 flex items-center">
-                <Link href="/dashboard" className="text-2xl font-bold tracking-tight text-gray-900" onClick={onClose}>
-                    Swift<span className="gradient-text">VTU</span>
+                <Link href="/dashboard" className="flex items-center gap-1 font-[family-name:var(--font-fredoka)]" onClick={onClose}>
+                    <span className="text-3xl font-bold text-black tracking-tight">EZY</span>
+                    <span className="text-3xl font-bold text-[#0066FF] tracking-tight">VTU</span>
+                    <span className="text-3xl font-bold text-black">.</span>
                 </Link>
             </div>
 

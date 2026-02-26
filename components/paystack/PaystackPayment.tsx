@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { usePaystackPayment } from "react-paystack";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 import { CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -15,7 +15,7 @@ interface PaystackPaymentProps {
         access_code?: string;
     };
     trigger: boolean;
-    onSuccess: (reference: any) => void;
+    onSuccess: (reference: Record<string, unknown>) => void;
     onClose: () => void;
     isLoading: boolean;
     setTrigger: (value: boolean) => void;

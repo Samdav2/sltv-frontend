@@ -10,7 +10,7 @@ import {
     CreditCard,
     LifeBuoy,
     LogOut,
-    Settings,
+    // Settings,
     Tag
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -51,7 +51,7 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
 
     // Calculate unread count (Open or Pending tickets)
     const supportBadgeCount = Array.isArray(tickets)
-        ? tickets.filter((t: any) => t.status === 'open' || t.status === 'pending').length
+        ? tickets.filter((t: any) => t.status === 'open' || t.status === 'pending').length // eslint-disable-line @typescript-eslint/no-explicit-any
         : 0;
 
     const handleLogout = () => {
@@ -65,14 +65,11 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
             className
         )}>
             <div className="p-6 border-b border-gray-50">
-                <Link href="/admin/dashboard" className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-red-500/20">
-                        S
-                    </div>
-                    <span className="text-xl font-bold tracking-tight text-gray-900">
-                        Swift<span className="text-red-600">VTU</span>
-                    </span>
-                    <span className="ml-auto text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded-full">ADMIN</span>
+                <Link href="/admin/dashboard" className="flex items-center gap-1 font-[family-name:var(--font-fredoka)]">
+                    <span className="text-2xl font-bold text-black tracking-tight">EZY</span>
+                    <span className="text-2xl font-bold text-[#0066FF] tracking-tight">VTU</span>
+                    <span className="text-2xl font-bold text-black">.</span>
+                    <span className="ml-auto text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded-full font-sans">ADMIN</span>
                 </Link>
             </div>
 

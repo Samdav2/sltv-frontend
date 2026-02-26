@@ -9,7 +9,7 @@ export function Footer() {
                     {/* Brand */}
                     <div className="lg:col-span-1">
                         <Link href="/" className="text-2xl font-bold text-white mb-6 block tracking-tight">
-                            Swift<span className="text-primary">VTU</span>
+                            EZY <span className="text-primary">VTU</span>
                         </Link>
                         <p className="text-sm leading-relaxed mb-6">
                             Your reliable partner for instant digital payments and virtual
@@ -80,7 +80,7 @@ export function Footer() {
                         </h4>
                         <div className="space-y-4">
                             <p className="flex items-center gap-3 text-sm">
-                                <Mail className="text-primary w-4 h-4" /> support@swiftvtu.com
+                                <Mail className="text-primary w-4 h-4" /> support@ezyvtu.com.ng
                             </p>
                             <p className="flex items-center gap-3 text-sm">
                                 <Phone className="text-primary w-4 h-4" /> +234 800 123 4567
@@ -90,8 +90,10 @@ export function Footer() {
                 </div>
 
                 <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <p className="text-sm">© {new Date().getFullYear()} SwiftVTU. All rights reserved.</p>
-                    <p className="text-sm">Made with ❤️ in Nigeria</p>
+                    <p className="text-sm">© {new Date().getFullYear()} EZY VTU. All rights reserved. Thank you for choosing us.</p>
+                    <p className="text-sm">
+                        Developed by <Link href="https://www.vicservers.com/" target="_blank" className="text-primary hover:underline">Vicservers Technologies</Link>
+                    </p>
                 </div>
             </div>
         </footer>

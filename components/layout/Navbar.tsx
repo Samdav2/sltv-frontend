@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+// import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -31,8 +32,10 @@ export function Navbar() {
             <div className="w-full mx-auto px-6 md:px-8 lg:max-w-[80%]">
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
-                    <Link href="/" className="text-2xl font-bold tracking-tight text-gray-900">
-                        Swift<span className="gradient-text">VTU</span>
+                    <Link href="/" className="flex items-center gap-1 font-[family-name:var(--font-fredoka)]">
+                        <span className="text-3xl font-bold text-black tracking-tight">EZY</span>
+                        <span className="text-3xl font-bold text-[#0066FF] tracking-tight">VTU</span>
+                        <span className="text-3xl font-bold text-black">.</span>
                     </Link>
 
                     {/* Desktop Menu */}
@@ -59,16 +62,12 @@ export function Navbar() {
 
                     {/* Desktop Buttons */}
                     <div className="hidden md:flex items-center gap-3">
-                        <Link href="/login">
-                            <Button variant="ghost" size="default" className="font-semibold">
-                                Sign In
-                            </Button>
-                        </Link>
-                        <Link href="/register">
-                            <Button size="default">
-                                Get Started
-                            </Button>
-                        </Link>
+                        <Button href="/login" variant="ghost" size="default" className="font-semibold">
+                            Sign In
+                        </Button>
+                        <Button href="/register" size="default">
+                            Get Started
+                        </Button>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -111,16 +110,12 @@ export function Navbar() {
                 </Link>
 
                 <div className="pt-4 space-y-3 border-t border-gray-100 mt-2">
-                    <Link href="/login" onClick={() => setIsOpen(false)}>
-                        <Button variant="secondary" className="w-full">
-                            Sign In
-                        </Button>
-                    </Link>
-                    <Link href="/register" onClick={() => setIsOpen(false)}>
-                        <Button className="w-full">
-                            Get Started
-                        </Button>
-                    </Link>
+                    <Button href="/login" onClick={() => setIsOpen(false)} variant="secondary" className="w-full">
+                        Sign In
+                    </Button>
+                    <Button href="/register" onClick={() => setIsOpen(false)} className="w-full">
+                        Get Started
+                    </Button>
                 </div>
             </div>
         </nav>
