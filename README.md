@@ -17,7 +17,7 @@ This is the frontend application for EZY VTU, built with Next.js 16, Tailwind CS
 
 ## Tech Stack
 
-- **Framework**: Next.js 16 (App Router with Standalone Output)
+- **Framework**: Next.js 16 (App Router)
 - **Styling**: Tailwind CSS v4
 - **Language**: TypeScript
 - **Icons**: Lucide React
@@ -49,20 +49,41 @@ NEXT_PUBLIC_API_URL=https://app.ezyvtu.com.ng/api/v1
 NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=pk_live_your_paystack_public_key
 ```
 
-## Deployment on Railway
+---
 
-This project is pre-configured for **Railway** deployment using Docker standalone build.
+## Deploying to Vercel
+
+Vercel is the native platform for Next.js applications and provides optimal performance out of the box.
+
+### Deployment Options:
+
+#### Option 1: Via Vercel Dashboard (Recommended)
+1. Push your repository to GitHub / GitLab / Bitbucket.
+2. Go to [Vercel Dashboard](https://vercel.com/new).
+3. Import your repository.
+4. Under **Environment Variables**, add:
+   - `NEXT_PUBLIC_API_URL`: `https://app.ezyvtu.com.ng/api/v1`
+   - `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY`: `pk_live_...`
+5. Click **Deploy**.
+
+#### Option 2: Via Vercel CLI
+```bash
+npm i -g vercel
+vercel login
+vercel
+```
+
+---
+
+## Deploying to Railway
+
+This project is also configured for **Railway** deployment using Docker standalone build.
 
 ### Deployment Steps:
-
-1. **Push Code**: Push this repository to GitHub or connect directly via Railway CLI (`railway up`).
-2. **New Project on Railway**:
-   - Go to [Railway Dashboard](https://railway.app).
-   - Click **New Project** -> **Deploy from GitHub repo**.
-   - Select this repository.
-3. **Configure Environment Variables**:
-   Under **Variables** in your Railway service, add:
-   - `NEXT_PUBLIC_API_URL`: Your backend API URL (e.g. `https://app.ezyvtu.com.ng/api/v1`)
-   - `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY`: Your Paystack Public Key
-4. **Deploy**:
-   Railway will automatically pick up `railway.json` and `Dockerfile` to build and deploy the Next.js standalone container.
+1. Go to [Railway Dashboard](https://railway.app).
+2. Click **New Project** -> **Deploy from GitHub repo**.
+3. Select this repository.
+4. Under **Variables** in Railway, add:
+   - `NEXT_PUBLIC_API_URL`: `https://app.ezyvtu.com.ng/api/v1`
+   - `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY`: `pk_live_...`
+5. Railway will build and deploy using `railway.json` & `Dockerfile`.

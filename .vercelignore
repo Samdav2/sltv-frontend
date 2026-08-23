@@ -1,0 +1,8 @@
+Dockerfile
+.dockerignore
+railway.json
+deploy
+deploy.zip
+build_log.txt
+.git
+.env*
